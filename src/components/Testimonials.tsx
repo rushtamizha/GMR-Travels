@@ -1,95 +1,76 @@
-import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 const reviews = [
   {
     name: "Priya Sharma",
-    review:
-      "Excellent service! The driver was very professional and the car was spotlessly clean.",
+    review: "Excellent service! The driver was very professional and the car was spotlessly clean. Will definitely book again for my Chennai trips.",
     rating: 5,
   },
   {
     name: "Rajesh Kumar",
-    review:
-      "Booked for airport transfer. On-time pickup and very fair pricing.",
+    review: "Booked for airport transfer. On-time pickup, comfortable ride, and very fair pricing. Highly recommended!",
     rating: 5,
   },
   {
     name: "Anitha Devi",
-    review:
-      "Used their Pondicherry sightseeing package. Great experience overall.",
+    review: "Used their Pondicherry sightseeing package. The driver doubled as a guide and made our trip memorable. Great value for money.",
     rating: 5,
   },
   {
     name: "Mohammed Arif",
-    review:
-      "Reliable cab service between Chennai and Pondicherry. Always on time.",
+    review: "Reliable cab service between Chennai and Pondicherry. I use them regularly for business trips. Always on time and comfortable.",
     rating: 4,
   },
 ];
 
-export default function Testimonials() {
-  const containerRef = useRef(null);
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    if (containerRef.current) {
-      setWidth(containerRef.current.scrollWidth / 2);
-    }
-  }, []);
-
-  const infinite = [...reviews, ...reviews];
-
+const Testimonials = () => {
   return (
-    <section className="py-20 bg-gray-100 overflow-hidden">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold">What Our Riders Say</h2>
-      </div>
-
-      <div className="overflow-hidden p-4">
+    <section id="testimonials" className="py-20 md:py-28 bg-secondary/50">
+      <div className="container mx-auto">
         <motion.div
-          ref={containerRef}
-          className="flex gap-6 w-max"
-          animate={{ x: [-width, 0] }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 10,
-              ease: "linear",
-            },
-          }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
         >
-          {infinite.map((r, i) => (
-            <div
-              key={i}
-              className="min-w-[300px] bg-white rounded-2xl shadow-lg p-6"
+          <span className="text-primary font-semibold text-sm uppercase tracking-wider">Testimonials</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mt-3">
+            What Our Riders Say
+          </h2>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {reviews.map((r, i) => (
+            <motion.div
+              key={r.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="bg-card rounded-2xl card-shadow p-6 border border-border/50"
             >
-              <div className="flex gap-1 mb-3">
+              <div className="flex gap-0.5 mb-3">
                 {Array.from({ length: 5 }).map((_, j) => (
                   <Star
                     key={j}
-                    className={`w-4 h-4 ${
-                      j < r.rating
-                        ? "fill-yellow-400 text-yellow-400"
-                        : "text-gray-300"
-                    }`}
+                    className={`w-4 h-4 ${j < r.rating ? "fill-accent text-accent" : "text-border"}`}
                   />
                 ))}
               </div>
-
-              <p className="text-gray-600 text-sm mb-4">
-                "{r.review}"
-              </p>
-
-              <p className="font-semibold text-gray-800 text-sm">
-                {r.name}
-              </p>
-            </div>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">"{r.review}"</p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="text-primary font-bold text-sm">{r.name[0]}</span>
+                </div>
+                <p className="font-semibold text-foreground text-sm">{r.name}</p>
+              </div>
+            </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
-}
+};
+
+export default Testimonials;
