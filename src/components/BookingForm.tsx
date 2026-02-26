@@ -101,7 +101,7 @@ Please confirm fare & availability.
         </div>
 
         {/* Date & Time */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid  gap-3">
           <input
             type="date"
             value={date}
@@ -148,7 +148,7 @@ Please confirm fare & availability.
         </div>
 
         {/* Buttons */}
-        <div className="grid grid-cols-2 gap-3 mt-2">
+        <div className="grid  gap-3 mt-2">
           
           <Button
             onClick={generateWhatsAppLink}
