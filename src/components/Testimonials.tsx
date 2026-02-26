@@ -44,13 +44,17 @@ export default function Testimonials() {
       </div>
 
       <div className="relative p-4 w-full overflow-hidden">
-        <motion.div
-          className="flex gap-6"
-          animate={{ x: ["0%", "-50%"] }}
+       <motion.div
+          ref={containerRef}
+          className="flex gap-6 w-max"
+          animate={{ x: [-width, 0] }}
           transition={{
-            repeat: Infinity,
-            duration: 8,
-            ease: "linear",
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 10,
+              ease: "linear",
+            },
           }}
         >
           {infiniteReviews.map((r, i) => (
