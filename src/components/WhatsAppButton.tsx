@@ -10,7 +10,7 @@ const WhatsAppButton = () => {
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ delay: 1, type: "spring" }}
-      className="fixed bottom-16 right-6 z-50 flex items-center gap-2 bg-whatsapp text-accent-foreground px-5 py-3.5 rounded-full shadow-lg hover:shadow-xl transition-shadow group"
+      className="fixed bottom-20 right-6 z-50 flex items-center gap-2 bg-whatsapp text-accent-foreground px-5 py-3.5 rounded-full shadow-lg hover:shadow-xl transition-shadow group"
     >
       <MessageCircle className="w-5 h-5" />
       <span className="font-semibold text-sm hidden sm:inline">Inquire on WhatsApp</span>
