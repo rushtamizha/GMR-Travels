@@ -119,7 +119,7 @@ Please confirm fare & availability.
         {/* Passengers */}
         <select
           value={passengers}
-          onChange={(e) => setPassengers(Number(e.target.value))}
+          onChange={(e) => setPassengers(e.target.value)}
           className="pl-4 pr-4 py-3.5 bg-secondary rounded-2xl"
         >
           {[1,2,3,4,5,6,7,8].map((n) => (
@@ -174,5 +174,7 @@ Please confirm fare & availability.
     </motion.div>
   );
 };
+
+export default BookingForm;
 
 export default BookingForm;
