@@ -176,5 +176,3 @@ Please confirm fare & availability.
 };
 
 export default BookingForm;
-
-export default BookingForm;
