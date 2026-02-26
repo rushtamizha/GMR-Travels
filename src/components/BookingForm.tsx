@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Calendar, Clock, Users, Car, Search, MessageCircle } from "lucide-react";
+import { MapPin, Calendar, Clock, Users, Search, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const ADMIN_NUMBER = "919876543210"; // change to your admin number (with country code)
+
 const pickupLocations = [
-  "Chennai", "Pondicherry", "Chennai Airport", "Chennai Railway Station",
-  "Mahabalipuram", "ECR", "OMR",
+  "Chennai", "Pondicherry", "Chennai Airport",
+  "Chennai Railway Station", "Mahabalipuram", "ECR", "OMR",
 ];
 
 const vehicleTypes = [
@@ -17,8 +19,38 @@ const vehicleTypes = [
 const BookingForm = () => {
   const [pickup, setPickup] = useState("");
   const [drop, setDrop] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [passengers, setPassengers] = useState(1);
   const [vehicle, setVehicle] = useState("Sedan");
   const [loading, setLoading] = useState(false);
+
+  const generateWhatsAppLink = () => {
+    if (!pickup || !drop || !date || !time) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    const message = `
+🚖 *New Cab Booking Request*
+
+📍 Pickup: ${pickup}
+📍 Drop: ${drop}
+
+📅 Date: ${date}
+⏰ Time: ${time}
+
+👥 Passengers: ${passengers}
+🚗 Vehicle: ${vehicle}
+
+Please confirm fare & availability.
+    `;
+
+    const encodedMessage = encodeURIComponent(message);
+    const url = `https://wa.me/${ADMIN_NUMBER}?text=${encodedMessage}`;
+
+    window.open(url, "_blank");
+  };
 
   const handleCheckFare = () => {
     setLoading(true);
@@ -32,16 +64,19 @@ const BookingForm = () => {
       transition={{ duration: 0.7, delay: 0.3 }}
       className="w-full max-w-2xl bg-card rounded-3xl card-shadow p-6 md:p-8"
     >
-      <h3 className="text-lg font-bold text-foreground mb-5">Book Your Ride</h3>
+      <h3 className="text-lg font-bold text-foreground mb-5">
+        Book Your Ride
+      </h3>
 
       <div className="grid gap-4">
+
         {/* Pickup */}
         <div className="relative">
           <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
           <select
             value={pickup}
             onChange={(e) => setPickup(e.target.value)}
-            className="w-full pl-11 pr-4 py-3.5 bg-secondary rounded-2xl text-foreground text-sm font-medium border-0 focus:ring-2 focus:ring-primary outline-none appearance-none cursor-pointer"
+            className="w-full pl-11 pr-4 py-3.5 bg-secondary rounded-2xl"
           >
             <option value="">Pickup Location</option>
             {pickupLocations.map((loc) => (
@@ -56,7 +91,7 @@ const BookingForm = () => {
           <select
             value={drop}
             onChange={(e) => setDrop(e.target.value)}
-            className="w-full pl-11 pr-4 py-3.5 bg-secondary rounded-2xl text-foreground text-sm font-medium border-0 focus:ring-2 focus:ring-primary outline-none appearance-none cursor-pointer"
+            className="w-full pl-11 pr-4 py-3.5 bg-secondary rounded-2xl"
           >
             <option value="">Drop Location</option>
             {pickupLocations.map((loc) => (
@@ -67,78 +102,72 @@ const BookingForm = () => {
 
         {/* Date & Time */}
         <div className="grid grid-cols-2 gap-3">
-          <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <input
-              type="date"
-              className="w-full pl-11 pr-4 py-3.5 bg-secondary rounded-2xl text-foreground text-sm font-medium border-0 focus:ring-2 focus:ring-primary outline-none"
-            />
-          </div>
-          <div className="relative">
-            <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <input
-              type="time"
-              className="w-full pl-11 pr-4 py-3.5 bg-secondary rounded-2xl text-foreground text-sm font-medium border-0 focus:ring-2 focus:ring-primary outline-none"
-            />
-          </div>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="pl-4 pr-4 py-3.5 bg-secondary rounded-2xl"
+          />
+          <input
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            className="pl-4 pr-4 py-3.5 bg-secondary rounded-2xl"
+          />
         </div>
 
         {/* Passengers */}
-        <div className="relative">
-          <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-          <select
-            className="w-full pl-11 pr-4 py-3.5 bg-secondary rounded-2xl text-foreground text-sm font-medium border-0 focus:ring-2 focus:ring-primary outline-none appearance-none cursor-pointer"
-          >
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-              <option key={n} value={n}>{n} Passenger{n > 1 ? "s" : ""}</option>
-            ))}
-          </select>
-        </div>
+        <select
+          value={passengers}
+          onChange={(e) => setPassengers(e.target.value)}
+          className="pl-4 pr-4 py-3.5 bg-secondary rounded-2xl"
+        >
+          {[1,2,3,4,5,6,7,8].map((n) => (
+            <option key={n} value={n}>
+              {n} Passenger{n > 1 ? "s" : ""}
+            </option>
+          ))}
+        </select>
 
-        {/* Vehicle Type */}
+        {/* Vehicle */}
         <div className="flex gap-2">
           {vehicleTypes.map((v) => (
             <button
               key={v.label}
               onClick={() => setVehicle(v.label)}
-              className={`flex-1 py-3 rounded-2xl text-sm font-semibold transition-all ${
+              type="button"
+              className={`flex-1 py-3 rounded-2xl text-sm font-semibold ${
                 vehicle === v.label
-                  ? "bg-primary text-primary-foreground shadow-lg"
-                  : "bg-secondary text-foreground hover:bg-muted"
+                  ? "bg-primary text-white"
+                  : "bg-secondary"
               }`}
             >
-              <span className="mr-1">{v.icon}</span> {v.label}
+              {v.icon} {v.label}
             </button>
           ))}
         </div>
 
-        {/* CTAs */}
+        {/* Buttons */}
         <div className="grid grid-cols-2 gap-3 mt-2">
           <Button
             onClick={handleCheckFare}
             disabled={loading}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-2xl py-6 text-base font-bold"
+            className="rounded-2xl py-6 text-base font-bold"
           >
-            {loading ? (
-              <span className="flex items-center gap-2">
-                <span className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
-                Checking...
-              </span>
-            ) : (
+            {loading ? "Checking..." : (
               <>
                 <Search className="w-4 h-4 mr-2" />
                 Check Fare
               </>
             )}
           </Button>
+
           <Button
-            asChild
-            className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-2xl py-6 text-base font-bold"
+            onClick={generateWhatsAppLink}
+            className="bg-accent text-white rounded-2xl py-6 text-base font-bold"
           >
-            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="w-4 h-4 mr-2" />
-              WhatsApp
-            </a>
+            <MessageCircle className="w-4 h-4 mr-2" />
+            WhatsApp
           </Button>
         </div>
       </div>
