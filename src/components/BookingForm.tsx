@@ -149,19 +149,7 @@ Please confirm fare & availability.
 
         {/* Buttons */}
         <div className="grid grid-cols-2 gap-3 mt-2">
-          <Button
-            onClick={handleCheckFare}
-            disabled={loading}
-            className="rounded-2xl py-6 text-base font-bold"
-          >
-            {loading ? "Checking..." : (
-              <>
-                <Search className="w-4 h-4 mr-2" />
-                Check Fare
-              </>
-            )}
-          </Button>
-
+          
           <Button
             onClick={generateWhatsAppLink}
             className="bg-accent text-white rounded-2xl py-6 text-base font-bold"
