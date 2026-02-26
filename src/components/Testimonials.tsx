@@ -43,7 +43,7 @@ export default function Testimonials() {
         </h2>
       </div>
 
-      <div className="relative w-full overflow-hidden">
+      <div className="relative p-4 w-full overflow-hidden">
         <motion.div
           className="flex gap-6"
           animate={{ x: ["0%", "-50%"] }}
