@@ -49,7 +49,7 @@ export default function Testimonials() {
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             repeat: Infinity,
-            duration: 20,
+            duration: 8,
             ease: "linear",
           }}
         >
