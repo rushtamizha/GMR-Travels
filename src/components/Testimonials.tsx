@@ -4,73 +4,91 @@ import { Star } from "lucide-react";
 const reviews = [
   {
     name: "Priya Sharma",
-    review: "Excellent service! The driver was very professional and the car was spotlessly clean. Will definitely book again for my Chennai trips.",
+    review:
+      "Excellent service! The driver was very professional and the car was spotlessly clean.",
     rating: 5,
   },
   {
     name: "Rajesh Kumar",
-    review: "Booked for airport transfer. On-time pickup, comfortable ride, and very fair pricing. Highly recommended!",
+    review:
+      "Booked for airport transfer. On-time pickup and very fair pricing.",
     rating: 5,
   },
   {
     name: "Anitha Devi",
-    review: "Used their Pondicherry sightseeing package. The driver doubled as a guide and made our trip memorable. Great value for money.",
+    review:
+      "Used their Pondicherry sightseeing package. Great experience overall.",
     rating: 5,
   },
   {
     name: "Mohammed Arif",
-    review: "Reliable cab service between Chennai and Pondicherry. I use them regularly for business trips. Always on time and comfortable.",
+    review:
+      "Reliable cab service between Chennai and Pondicherry. Always on time.",
     rating: 4,
   },
 ];
 
-const Testimonials = () => {
-  return (
-    <section id="testimonials" className="py-20 md:py-28 bg-secondary/50">
-      <div className="container mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-14"
-        >
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">Testimonials</span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mt-3">
-            What Our Riders Say
-          </h2>
-        </motion.div>
+// Duplicate array for smooth infinite scroll
+const infiniteReviews = [...reviews, ...reviews];
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {reviews.map((r, i) => (
-            <motion.div
-              key={r.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-card rounded-2xl card-shadow p-6 border border-border/50"
+export default function Testimonials() {
+  return (
+    <section className="py-20 bg-gray-100 overflow-hidden">
+      <div className="text-center mb-12">
+        <p className="text-blue-600 font-semibold text-sm uppercase tracking-wider">
+          Testimonials
+        </p>
+        <h2 className="text-3xl md:text-4xl font-bold mt-3">
+          What Our Riders Say
+        </h2>
+      </div>
+
+      <div className="relative w-full overflow-hidden">
+        <motion.div
+          className="flex gap-6"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            repeat: Infinity,
+            duration: 20,
+            ease: "linear",
+          }}
+        >
+          {infiniteReviews.map((r, i) => (
+            <div
+              key={i}
+              className="min-w-[300px] md:min-w-[350px] bg-white rounded-2xl shadow-lg p-6"
             >
-              <div className="flex gap-0.5 mb-3">
+              <div className="flex gap-1 mb-3">
                 {Array.from({ length: 5 }).map((_, j) => (
                   <Star
                     key={j}
-                    className={`w-4 h-4 ${j < r.rating ? "fill-accent text-accent" : "text-border"}`}
+                    className={`w-4 h-4 ${
+                      j < r.rating
+                        ? "fill-yellow-400 text-yellow-400"
+                        : "text-gray-300"
+                    }`}
                   />
                 ))}
               </div>
-              <p className="text-muted-foreground text-sm leading-relaxed mb-4">"{r.review}"</p>
+
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                "{r.review}"
+              </p>
+
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-primary font-bold text-sm">{r.name[0]}</span>
+                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                  <span className="text-blue-600 font-bold text-sm">
+                    {r.name[0]}
+                  </span>
                 </div>
-                <p className="font-semibold text-foreground text-sm">{r.name}</p>
+                <p className="font-semibold text-gray-800 text-sm">
+                  {r.name}
+                </p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
-};
-
-export default Testimonials;
+}
