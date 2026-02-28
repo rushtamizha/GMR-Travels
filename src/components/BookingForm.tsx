@@ -12,12 +12,16 @@ const locations = [
   "Tirupati",
   "Bangalore",
   "Trichy",
+  "Madurai",
+  "Kumbakonam",
+  "Kerala",
+  "Cuddalore",
 ];
 
 const vehicleTypes = [
   { label: "Sedan", icon: "🚗" },
   { label: "SUV", icon: "🚙" },
-  { label: "Tempo Traveller", icon: "🚐" },
+  { label: "Tempo", icon: "🚐" },
 ];
 
 export default function BookingForm() {

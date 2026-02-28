@@ -3,11 +3,28 @@ import { MapPin, Clock, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const routes = [
-  { from: "Chennai", to: "Pondicherry", distance: "150 km", duration: "2.5 hrs", price: "₹2,500" },
-  { from: "Pondicherry", to: "Chennai", distance: "150 km", duration: "2.5 hrs", price: "₹2,500" },
-  { from: "Chennai Airport", to: "Pondicherry", distance: "160 km", duration: "3 hrs", price: "₹3,000" },
-  { from: "Chennai", to: "Mahabalipuram", distance: "60 km", duration: "1.5 hrs", price: "₹1,500" },
-  { from: "Pondicherry", to: "Tirupati", distance: "280 km", duration: "5 hrs", price: "₹4,500" },
+  { from: "Chennai", to: "Pondicherry", distance: "150 km", duration: "3 hrs", price: "₹2,500" },
+  { from: "Pondicherry", to: "Chennai", distance: "150 km", duration: "3 hrs", price: "₹2,500" },
+
+  { from: "Chennai", to: "Bangalore", distance: "350 km", duration: "6–7 hrs", price: "₹6,500" },
+
+  { from: "Chennai", to: "Tirupati", distance: "135 km", duration: "3–4 hrs", price: "₹3,000" },
+
+  { from: "Pondicherry", to: "Tirupati", distance: "300 km", duration: "6 hrs", price: "₹6,000" },
+
+  { from: "Pondicherry", to: "Chidambaram", distance: "65 km", duration: "1.5 hrs", price: "₹2,000" },
+
+  { from: "Pondicherry", to: "Kumbakonam", distance: "135 km", duration: "3 hrs", price: "₹3,500" },
+
+  { from: "Chennai", to: "Trichy", distance: "330 km", duration: "6 hrs", price: "₹6,000" },
+
+  { from: "Chennai", to: "Madurai", distance: "460 km", duration: "8 hrs", price: "₹8,000" },
+
+  { from: "Chennai", to: "Cuddalore", distance: "180 km", duration: "4 hrs", price: "₹3,500" },
+
+  { from: "Chennai", to: "Kerala (Kochi)", distance: "680 km", duration: "11–12 hrs", price: "₹11,000" },
+
+  { from: "Pondicherry", to: "Kerala (Kochi)", distance: "620 km", duration: "10–11 hrs", price: "₹10,000" },
 ];
 
 const RoutesSection = () => {
@@ -57,7 +74,7 @@ const RoutesSection = () => {
               </div>
 
               <div className="flex items-center justify-between">
-                <p className="text-primary font-extrabold text-xl">{route.price}</p>
+                
                 <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-semibold">
                   <a href="#home">
                     Book <ArrowRight className="w-3.5 h-3.5 ml-1" />

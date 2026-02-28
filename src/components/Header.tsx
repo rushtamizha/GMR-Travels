@@ -17,10 +17,21 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+const handleMobileClick = (href) => {
+  setMobileOpen(false);
+
+  setTimeout(() => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  }, 250); // wait for animation to close
+};
 
   return (
     <header
@@ -32,11 +43,13 @@ const Header = () => {
     >
       <div className="container mx-auto flex items-center justify-between h-16 md:h-20">
         <a href="#home" className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-extrabold text-lg">C</span>
+          <div className="h-12 w-12  rounded-full flex items-center justify-center">
+            <img src="/logo.png" className="w-full rounded-lg" alt="gmr-logo" />
           </div>
-          <span className={`font-extrabold text-xl ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>
-            CabEasy
+          <span
+            className={`font-extrabold text-xl ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
+          >
+            GMR Travels
           </span>
         </a>
 
@@ -64,7 +77,7 @@ const Header = () => {
             }`}
           >
             <Phone className="w-4 h-4" />
-            +91 98765 43210
+            +91 7806986128
           </a>
           <Button
             asChild
@@ -78,7 +91,11 @@ const Header = () => {
           onClick={() => setMobileOpen(!mobileOpen)}
           className={`lg:hidden p-2 rounded-lg ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
         >
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
         </button>
       </div>
 
@@ -94,19 +111,33 @@ const Header = () => {
               {navLinks.map((link) => (
                 <a
                   key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleMobileClick(link.href);
+                  }}
                   className="px-4 py-3 rounded-lg text-foreground hover:bg-muted font-medium text-sm"
                 >
                   {link.label}
                 </a>
               ))}
               <div className="flex items-center gap-3 mt-3 px-4">
-                <Button asChild className="flex-1 bg-primary text-primary-foreground rounded-xl">
-                  <a href="#home">Book Now</a>
+                <Button
+                  asChild
+                  className="flex-1 bg-primary text-primary-foreground rounded-xl"
+                >
+                  <a href="#home"  >Book Now</a>
                 </Button>
-                <Button asChild variant="outline" className="flex-1 rounded-xl border-whatsapp text-whatsapp">
-                  <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="flex-1 rounded-xl border-whatsapp text-whatsapp"
+                >
+                  <a
+                    href="https://wa.me/917806986128"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     WhatsApp
                   </a>
                 </Button>

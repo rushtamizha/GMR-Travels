@@ -6,7 +6,7 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden"
+      className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden scroll-mt-20"
     >
       {/* Background */}
       <div className="absolute inset-0">
@@ -28,12 +28,11 @@ const HeroSection = () => {
             transition={{ duration: 0.7 }}
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-6">
-              🚖 Trusted by 10,000+ Riders
+              🚖 Trusted by 1000+ Riders
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-foreground leading-tight mb-6">
-              Chennai ↔ Pondicherry{" "}
-              <span className="block">Cab Service</span>
-              <span className="block text-accent mt-2">Starting from ₹2,500</span>
+              One way taxi services{" "}
+              <span className="block">All Over India</span>
             </h1>
             <p className="text-primary-foreground/80 text-lg md:text-xl max-w-lg leading-relaxed mb-8">
               Safe, comfortable, and affordable cab service with professional drivers and door-to-door pickup.

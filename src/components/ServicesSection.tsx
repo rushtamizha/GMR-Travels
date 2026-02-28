@@ -76,7 +76,6 @@ const ServicesSection = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-foreground text-lg">{service.title}</h3>
-                  <p className="text-primary font-extrabold text-xl">{service.price}</p>
                 </div>
               </div>
 
@@ -96,7 +95,7 @@ const ServicesSection = () => {
                   </a>
                 </Button>
                 <Button asChild variant="outline" className="rounded-xl border-whatsapp text-whatsapp hover:bg-whatsapp/10 px-3">
-                  <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/917806986128" target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="w-4 h-4" />
                   </a>
                 </Button>
