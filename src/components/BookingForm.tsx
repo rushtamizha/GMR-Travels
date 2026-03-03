@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Calendar, Clock, Users, MessageCircle } from "lucide-react";
 
-const ADMIN_NUMBER = "919876543210";
+const ADMIN_NUMBER = "917806986128";
 
 const locations = [
   "Chennai",
