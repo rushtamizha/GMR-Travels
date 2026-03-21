@@ -4,20 +4,6 @@ import { MapPin, Calendar, Clock, Users, MessageCircle } from "lucide-react";
 
 const ADMIN_NUMBER = "917806986128";
 
-const locations = [
-  "Chennai",
-  "Pondicherry",
-  "Chennai Airport",
-  "Mahabalipuram",
-  "Tirupati",
-  "Bangalore",
-  "Trichy",
-  "Madurai",
-  "Kumbakonam",
-  "Kerala",
-  "Cuddalore",
-];
-
 const vehicleTypes = [
   { label: "Sedan", icon: "🚗" },
   { label: "SUV", icon: "🚙" },
@@ -32,17 +18,16 @@ export default function BookingForm() {
   const [passengers, setPassengers] = useState(1);
   const [vehicle, setVehicle] = useState("Sedan");
 
-  // ✅ Restrict route logic
+  // ✅ Flexible route logic (case-insensitive)
   const isValidRoute = () => {
     if (!pickup || !drop) return false;
+    
+    const p = pickup.toLowerCase().trim();
+    const d = drop.toLowerCase().trim();
 
-    const valid =
-      pickup === "Chennai" ||
-      pickup === "Pondicherry" ||
-      drop === "Chennai" ||
-      drop === "Pondicherry";
-
-    return valid;
+    // Check if either pickup or drop is Chennai or Pondicherry
+    return p.includes("chennai") || p.includes("pondicherry") || 
+           d.includes("chennai") || d.includes("pondicherry");
   };
 
   const handleWhatsApp = () => {
@@ -73,10 +58,7 @@ export default function BookingForm() {
 Please confirm fare & availability.
     `;
 
-    const url = `https://wa.me/${ADMIN_NUMBER}?text=${encodeURIComponent(
-      message
-    )}`;
-
+    const url = `https://wa.me/${ADMIN_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };
 
@@ -93,34 +75,28 @@ Please confirm fare & availability.
 
       <div className="grid gap-4">
 
-        {/* Pickup */}
+        {/* Pickup Input */}
         <div className="relative">
           <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-600 w-5 h-5" />
-          <select
+          <input
+            type="text"
+            placeholder="Enter Pickup Location"
             value={pickup}
             onChange={(e) => setPickup(e.target.value)}
             className="w-full pl-10 py-3 bg-gray-100 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
-          >
-            <option value="">Select Pickup Location</option>
-            {locations.map((loc) => (
-              <option key={loc}>{loc}</option>
-            ))}
-          </select>
+          />
         </div>
 
-        {/* Drop */}
+        {/* Drop Input */}
         <div className="relative">
           <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-yellow-500 w-5 h-5" />
-          <select
+          <input
+            type="text"
+            placeholder="Enter Drop Location"
             value={drop}
             onChange={(e) => setDrop(e.target.value)}
             className="w-full pl-10 py-3 bg-gray-100 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
-          >
-            <option value="">Select Drop Location</option>
-            {locations.map((loc) => (
-              <option key={loc}>{loc}</option>
-            ))}
-          </select>
+          />
         </div>
 
         {/* Date & Time */}
@@ -152,10 +128,10 @@ Please confirm fare & availability.
           <select
             value={passengers}
             onChange={(e) => setPassengers(e.target.value)}
-            className="w-full pl-10 py-3 bg-gray-100 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full pl-10 py-3 bg-gray-100 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none appearance-none"
           >
-            {[1,2,3,4,5,6,7,8].map((n) => (
-              <option key={n}>{n} Passenger{n > 1 ? "s" : ""}</option>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+              <option key={n} value={n}>{n} Passenger{n > 1 ? "s" : ""}</option>
             ))}
           </select>
         </div>
