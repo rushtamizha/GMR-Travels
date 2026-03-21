@@ -18,28 +18,9 @@ export default function BookingForm() {
   const [passengers, setPassengers] = useState(1);
   const [vehicle, setVehicle] = useState("Sedan");
 
-  // ✅ Flexible route logic (case-insensitive)
-  const isValidRoute = () => {
-    if (!pickup || !drop) return false;
-    
-    const p = pickup.toLowerCase().trim();
-    const d = drop.toLowerCase().trim();
-
-    // Check if either pickup or drop is Chennai or Pondicherry
-    return p.includes("chennai") || p.includes("pondicherry") || 
-           d.includes("chennai") || d.includes("pondicherry");
-  };
-
   const handleWhatsApp = () => {
     if (!pickup || !drop || !date || !time) {
       alert("Please fill all fields");
-      return;
-    }
-
-    if (!isValidRoute()) {
-      alert(
-        "Booking allowed only: Chennai ↔ Any Place or Pondicherry ↔ Any Place"
-      );
       return;
     }
 
