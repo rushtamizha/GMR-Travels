@@ -114,9 +114,9 @@ const Footer = () => {
               href="https://wepzite.in"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-yellow-400  font-medium "
+              className="text-yellow-400  text-lg font-medium "
             >
-              wepzite.in
+              Wepzite.in
             </a>
           </p>
         </div>
